@@ -85,7 +85,9 @@ var Log = DefaultLogger()
 func init() {
 	// "the practical default level is V(2)"
 	// see https://github.com/kubernetes/community/blob/master/contributors/devel/logging.md
-	goflag.IntVar(&defaultVerbosity, "v", 2, "log level for V logs")
+	if goflag.Lookup("v") == nil {
+		goflag.IntVar(&defaultVerbosity, "v", 2, "log level for V logs")
+	}
 }
 
 func InitializeLogging(comp string) {
